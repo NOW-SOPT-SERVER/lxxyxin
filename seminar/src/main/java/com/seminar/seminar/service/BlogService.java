@@ -36,4 +36,12 @@ public class BlogService {
         Blog blog = findById(blogId);
         blog.updateTitle(blogTitleUpdateRequest.title());
     }
+
+    //멤버-블로그 검증
+    public void validateMemberBlog(Long blogId, Long memberId){
+        Blog blog = this.findById(blogId);
+        if(!blog.getMember().getId().equals(memberId)){
+            throw new NotFoundException(ErrorMessage.BLOG_NOT_FOUND_BY_MEMBER_ID_EXCEPTION);
+        }
+    }
 }
