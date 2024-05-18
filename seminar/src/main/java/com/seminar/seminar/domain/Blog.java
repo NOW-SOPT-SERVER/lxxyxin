@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -15,6 +18,9 @@ public class Blog extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Post> posts = new ArrayList<>();
 
     @Column(length = 200)
     private String title;
@@ -33,4 +39,5 @@ public class Blog extends BaseTimeEntity {
     public void updateTitle(String title){
         this.title = title;
     }
+
 }
