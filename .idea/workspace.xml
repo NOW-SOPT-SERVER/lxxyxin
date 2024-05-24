@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d2b411-8307-40f8-a13f-95ec11220b82" name="Changes" comment="" />
+    <list default="true" id="53d2b411-8307-40f8-a13f-95ec11220b82" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/seminar/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +35,7 @@
     </system>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/lxxyxin" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
@@ -64,9 +66,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2fDqXqNbamznzJd84IieNjgXpy8" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -77,9 +79,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "week1",
+    "git-widget-placeholder": "week3",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/yoon-garden/Desktop/무제 폴더/lxxyxin",
+    "last_opened_file_path": "/Users/lxxyxin/Desktop/sopt_server/lxxyxin",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -99,6 +101,13 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-53826d6a" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -108,6 +117,7 @@
       <option name="presentableId" value="Default" />
       <updated>1713346039176</updated>
       <workItem from="1713346043322" duration="282000" />
+      <workItem from="1715762166712" duration="40000" />
     </task>
     <servers />
   </component>
