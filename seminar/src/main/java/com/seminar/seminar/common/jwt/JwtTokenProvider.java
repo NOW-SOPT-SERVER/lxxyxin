@@ -1,6 +1,5 @@
 package com.seminar.seminar.common.jwt;
 
-import com.seminar.seminar.domain.Token;
 import com.seminar.seminar.repository.RedisTokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @RequiredArgsConstructor
@@ -53,11 +51,6 @@ public class JwtTokenProvider {
                 .compact();
 
     }
-
-
-
-
-
 
     private SecretKey getSigningKey() {
         String encodedKey = Base64.getEncoder().encodeToString(JWT_SECRET.getBytes()); //SecretKey 통해 서명 생성
