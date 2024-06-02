@@ -1,9 +1,12 @@
 package com.seminar.seminar.common.jwt;
 
+import com.seminar.seminar.auth.UserAuthentication;
+import com.seminar.seminar.repository.RedisTokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -17,14 +20,20 @@ public class JwtTokenProvider {
 
     private static final String USER_ID = "userId";
 
-    private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 24 * 60 * 60 * 1000L * 14;
-
+    private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 24 * 60 * 60 * 1000L * 3;
+    private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 60 * 60 * 24 * 1000L * 14;
     @Value("${jwt.secret}")
     private String JWT_SECRET;
 
+    private final RedisTemplate<String, String> redisTemplate;
+    private final RedisTokenRepository redisTokenRepository;
 
     public String issueAccessToken(final Authentication authentication) {
         return generateToken(authentication, ACCESS_TOKEN_EXPIRATION_TIME);
+    }
+
+    public String issueRefreshToken(final Authentication authentication){
+        return generateToken(authentication, REFRESH_TOKEN_EXPIRATION_TIME);
     }
 
 
@@ -41,6 +50,14 @@ public class JwtTokenProvider {
                 .setClaims(claims) // Claim
                 .signWith(getSigningKey()) // Signature
                 .compact();
+
+    }
+
+    public String newAccessToken(String refreshToken){
+        final Claims claims = getBody(refreshToken);
+        Long userId = Long.valueOf(claims.get(USER_ID).toString());
+        Authentication authentication = UserAuthentication.createUserAuthentication(userId);
+        return issueAccessToken(authentication);
     }
 
     private SecretKey getSigningKey() {
