@@ -3,14 +3,17 @@ package com.seminar.seminar.service;
 import com.seminar.seminar.auth.UserAuthentication;
 import com.seminar.seminar.common.jwt.JwtTokenProvider;
 import com.seminar.seminar.domain.Member;
+import com.seminar.seminar.domain.Token;
 import com.seminar.seminar.exception.ErrorMessage;
 import com.seminar.seminar.exception.NotFoundException;
 import com.seminar.seminar.repository.MemberRepository;
+import com.seminar.seminar.repository.RedisTokenRepository;
 import com.seminar.seminar.service.dto.MemberCreateDto;
 import com.seminar.seminar.service.dto.MemberFindDto;
 import com.seminar.seminar.service.dto.UserJoinResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final RedisTokenRepository redisTokenRepository;
 
 //    @Transactional //영속성 context
 //    //final 붙이는 경우도 가능
@@ -37,7 +41,11 @@ public class MemberService {
         String accessToken = jwtTokenProvider.issueAccessToken(
                 UserAuthentication.createUserAuthentication(memberId)
         );
-        return UserJoinResponse.of(accessToken, memberId.toString());
+        String refreshToken = jwtTokenProvider.issueRefreshToken(
+                UserAuthentication.createUserAuthentication(memberId)
+        );
+        redisTokenRepository.save(Token.of(memberId,refreshToken));
+        return UserJoinResponse.of(accessToken, refreshToken, memberId.toString());
     }
 
     public MemberFindDto findMemberById(Long memberId){

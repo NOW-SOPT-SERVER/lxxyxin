@@ -9,9 +9,10 @@ public record UserJoinResponse(
     public static UserJoinResponse of(
             String accessToken,
             String refreshToken,
-            String userId
+            String memberId
     ) {
-        return new UserJoinResponse(accessToken, refreshToken,userId);
+        return new UserJoinResponse(accessToken, refreshToken, memberId
+                );
     }
 }
 

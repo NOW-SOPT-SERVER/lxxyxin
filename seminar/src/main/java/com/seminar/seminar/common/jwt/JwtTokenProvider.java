@@ -1,5 +1,6 @@
 package com.seminar.seminar.common.jwt;
 
+import com.seminar.seminar.auth.UserAuthentication;
 import com.seminar.seminar.repository.RedisTokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -50,6 +51,13 @@ public class JwtTokenProvider {
                 .signWith(getSigningKey()) // Signature
                 .compact();
 
+    }
+
+    public String newAccessToken(String refreshToken){
+        final Claims claims = getBody(refreshToken);
+        Long userId = Long.valueOf(claims.get(USER_ID).toString());
+        Authentication authentication = UserAuthentication.createUserAuthentication(userId);
+        return issueAccessToken(authentication);
     }
 
     private SecretKey getSigningKey() {

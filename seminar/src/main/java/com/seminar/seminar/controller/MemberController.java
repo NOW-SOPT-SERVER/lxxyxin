@@ -22,6 +22,15 @@ public class MemberController {
 //    public ResponseEntity createMember(@RequestBody MemberCreateDto memberCreate){
 //        return ResponseEntity.created(URI.create(memberService.createMember(memberCreate))).build();
 //    }
+    @PostMapping
+    public ResponseEntity<UserJoinResponse> postMember(
+            @RequestBody MemberCreateDto memberCreateDto
+    ){
+        UserJoinResponse userJoinResponse = memberService.createMember(memberCreateDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .header("Location", userJoinResponse.userId())
+            .body(userJoinResponse);
+    }
 
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberFindDto> findtMemberById(@PathVariable Long memberId){
@@ -39,13 +48,4 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
-    public ResponseEntity<UserJoinResponse> postMember(
-            @RequestBody MemberCreateDto memberCreateDto
-    ){
-        UserJoinResponse userJoinResponse = memberService.createMember(memberCreateDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .header("Location", userJoinResponse.userId())
-                .body(userJoinResponse);
-    }
 }
